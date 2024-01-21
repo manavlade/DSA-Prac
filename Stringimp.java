@@ -6,6 +6,13 @@ public class Stringimp {
      * For example: A corresponds to 1, B to 2, C to 3, … , Z to 26, AA to 27, ..
      * and so on.
      */
+    // Important term related to string
+    /*
+     * In lexicographical order (also known as alphabetical order or dictionary
+     * order), strings are ordered based on the alphabetical order of their
+     * characters. In simple terms, it's the order you would find words in a
+     * dictionary.
+     */
     public static long titleToNumber(String str) {
         long result = 0;
 
