@@ -62,24 +62,56 @@ public class Graph {
     public static void dFS(ArrayList<Edge> graph[], int curr, boolean vis []){
         System.out.print(curr + " ");
         vis[curr] = true;
-
         for (int i = 0; i < graph[curr].size(); i++) {
             Edge e = graph[curr].get(i);
             dFS(graph, e.destination, vis);
         }
     }
-    public static void main(String[] args) {
+
+    public static void allPair(ArrayList<Edge> graph[],boolean vis [], int current, String path, int tar){
+        if(current ==  tar){
+            return;
+        }
+        for (int i = 0; i < graph[current].size(); i++) {
+            Edge e = graph[current].get(i);
+            if(!vis[current]){
+                vis[current] = true;
+                allPair(graph, vis, e.destination, path + e.destination, tar);
+                vis[current] = false;
+            }
+        }
+    }
+
+    public static boolean allCycle(ArrayList<Edge> graph[],boolean vis [], boolean rec [], int current){
+        vis[current] = true;
+        rec[current] =  true;
+       for (int i = 0; i < graph[current].size(); i++) {
+           Edge e = graph[current].get(i);
+           if(rec[e.destination]){
+            return true;
+           }
+           else if(!vis[e.destination]){
+            if(allCycle(graph, vis, rec, e.destination)){
+                return true;
+            }
+           }
+       }
+       rec[current]= false;
+       return false;
+    }
+     public static void main(String[] args) {
         int V = 7;
         ArrayList<Edge> graph[]  = new ArrayList[V];
         CreateGraph(graph);
-        boolean vis [] = new boolean[V];
-        for (int i = 0; i < V; i++) {
-            if(vis[i] == false){
-                bFS(graph, V, vis, i);
-            }
-        }
+        // Ye part tabhi add karna jab graph tukdo mei bata hoga
+        // boolean vis [] = new boolean[V];
+        // for (int i = 0; i < V; i++) {
+        //     if(vis[i] == false){
+        //         bFS(graph, V, vis, i);
+        //     }
+        // }
   
-        System.out.println();
+        // System.out.println();
 
 
 
@@ -88,5 +120,19 @@ public class Graph {
         // Edge e = graph[2].get(i);
         // System.out.println(e.destination);
         // }
+
+        // Cycle detection ke liye
+        boolean visited [] = new boolean[V];
+        boolean recursion [] = new boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            if(!visited[i]){
+               boolean iscycle =  allCycle(graph, visited, recursion, 0);
+               if(iscycle){
+                System.out.println(iscycle);
+                break;
+               }
+            }
+        }
     }
 }
