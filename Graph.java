@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 // Graph Creation 
 public class Graph {
@@ -99,10 +100,36 @@ public class Graph {
        rec[current]= false;
        return false;
     }
+
+    public static void toplogicalSort(ArrayList<Edge> graph[],boolean vis [], int current, Stack<Integer> stack){
+        vis[current] = true;
+        for (int i = 0; i < graph[current].size(); i++) {
+            Edge E = graph[current].get(i);
+            while (!vis[E.destination]) {
+                toplogicalSort(graph, vis, E.destination, stack);
+            }
+        }
+        stack.push(current);
+    }
+
+    public static void toputil(ArrayList<Edge> graph[], int V ){
+        boolean visited [] = new boolean[V];
+        Stack<Integer> stack = new Stack<>();
+       for (int i = 0; i < V; i++) {
+        if(!visited[i]){
+            toplogicalSort(graph, visited, i, stack);
+        }
+       }
+
+        while (!stack.empty()) {
+            System.out.print(stack.pop() + " ");
+        }
+    }
      public static void main(String[] args) {
         int V = 7;
         ArrayList<Edge> graph[]  = new ArrayList[V];
         CreateGraph(graph);
+        toputil(graph, V);  
         // Ye part tabhi add karna jab graph tukdo mei bata hoga
         // boolean vis [] = new boolean[V];
         // for (int i = 0; i < V; i++) {
@@ -122,17 +149,17 @@ public class Graph {
         // }
 
         // Cycle detection ke liye
-        boolean visited [] = new boolean[V];
-        boolean recursion [] = new boolean[V];
+        // boolean visited [] = new boolean[V];
+        // boolean recursion [] = new boolean[V];
 
-        for (int i = 0; i < V; i++) {
-            if(!visited[i]){
-               boolean iscycle =  allCycle(graph, visited, recursion, 0);
-               if(iscycle){
-                System.out.println(iscycle);
-                break;
-               }
-            }
-        }
+        // for (int i = 0; i < V; i++) {
+        //     if(!visited[i]){
+        //        boolean iscycle =  allCycle(graph, visited, recursion, 0);
+        //        if(iscycle){
+        //         System.out.println(iscycle);
+        //         break;
+        //        }
+        //     }
+        // }
     }
 }
