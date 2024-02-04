@@ -7,7 +7,7 @@ import java.util.Stack;
 public class Graph {
     static class Edge {
         int start;
-        int destination;
+        int destination;   
 
         public Edge(int s, int d) {
             this.start = s;
@@ -124,6 +124,21 @@ public class Graph {
         while (!stack.empty()) {
             System.out.print(stack.pop() + " ");
         }
+    }
+    public static boolean isCycleUndirected(ArrayList<Edge> graph[],boolean vis [], int current, int par){
+        //O(V+E)
+        vis[current]= true;
+        for (int i = 0; i < graph[current].size(); i++) {
+            Edge e = graph[current].get(i);
+            if(vis[e.destination] && e.destination != par ){
+                return true;
+            }
+            else if(!vis[e.destination]){
+                if(isCycleUndirected(graph, vis, e.destination, current));
+                return true;
+            }
+        }
+        return false;
     }
      public static void main(String[] args) {
         int V = 7;
