@@ -49,6 +49,23 @@ public class BellmonFord {
                 }
             }
         }
+
+        // For detecting negative weight
+        for (int k = 0; k < V - 1; k++) { // for vertices
+            for (int i = 0; i < V; i++) { // For edges
+                for (int j = 0; j < graph[i].size(); j++) {
+                    Edge e = graph[i].get(j);
+                    int u = e.src;
+                    int v = e.destination;
+                    if (dist[u] != Integer.MAX_VALUE && dist[u] + e.weight < dist[v]) {
+                        System.out.println("Negative weight cycle found");
+                    }
+                }
+            }
+        }
+
+        
+
         for (int i = 0; i < dist.length; i++) {
             System.out.print(dist[i] + " ");
         }
