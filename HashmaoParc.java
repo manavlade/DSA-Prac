@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.HashMap;
+// baaki hai practice
 
 public class HashmaoParc {
     static class HashMap<k, v> {

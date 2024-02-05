@@ -1,7 +1,6 @@
 import java.util.HashSet;
 import java.util.Set;
 
-import org.w3c.dom.Node;
 /*
  Question
  Given an unsorted linked list of N nodes. The task is to remove duplicate elements
