@@ -11,7 +11,8 @@ public class Fibonacci {
      * For ‘N’ = 5, the output will be 5.
      * link
      * https://www.codingninjas.com/studio/problems/nth-fibonacci-number_1115780?
-     * interviewProblemRedirection=true&leftPanelTabValue=PROBLEM
+     * interviewProblemRedirection=true&leftPanelTabValue=PROBLEM  
+     * NEED TO REVISE ONCE 
      */
     private static final int MOD = 1000000007;
 
@@ -51,5 +52,4 @@ public class Fibonacci {
 
         return result;
     }
-
 }
