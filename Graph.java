@@ -61,11 +61,13 @@ public class Graph {
     }
 
     public static void dFS(ArrayList<Edge> graph[], int curr, boolean vis []){
-        System.out.print(curr + " ");
         vis[curr] = true;
+        System.out.print(curr + " ");
         for (int i = 0; i < graph[curr].size(); i++) {
             Edge e = graph[curr].get(i);
-            dFS(graph, e.destination, vis);
+            if(!vis[e.destination]){ // imp if condition in no condition error 
+                dFS(graph, e.destination, vis);
+            }
         }
     }
 
@@ -140,11 +142,46 @@ public class Graph {
         }
         return false;
     }
+
+    public static void kosaRaju(ArrayList<Edge> graph[], int V){
+        Stack<Integer> stack = new Stack<>();
+        boolean [] vis = new boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            if(!vis[i]){
+                toplogicalSort(graph, vis, i, stack);
+            }
+        }
+
+        ArrayList<Edge> transpose[] = new ArrayList[V];
+        for (int i = 0; i < graph.length; i++) {
+            vis[i]= false;
+            transpose[i] = new ArrayList<Edge>();
+        }
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < graph[i].size(); j++) {
+                Edge e = graph[i].get(j);
+                transpose[e.destination].add(new Edge(e.destination, e.start));
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            int cur = stack.pop();
+            if(!vis[cur]){
+                dFS(transpose, cur, vis);
+                System.out.println();
+            }
+        }
+    }
+    
      public static void main(String[] args) {
         int V = 7;
         ArrayList<Edge> graph[]  = new ArrayList[V];
         CreateGraph(graph);
-        toputil(graph, V);  
+        kosaRaju(graph, V);
+        
+        // toputil(graph, V); 
+         
         // Ye part tabhi add karna jab graph tukdo mei bata hoga
         // boolean vis [] = new boolean[V];
         // for (int i = 0; i < V; i++) {
