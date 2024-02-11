@@ -12,6 +12,18 @@ class TreeNode {
     }
 }
 
+ class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
+
 class TREE {
     TreeNode root;
 
@@ -37,18 +49,6 @@ class TREE {
     }
 
     // public class Tree {
-
-    static class Node {
-        int data;
-        Node left;
-        Node right;
-
-        Node(int data) {
-            this.data = data;
-            this.left = null;
-            this.right = null;
-        }
-    }
 
     static class BinaryTree {
         static int idx = -1;
@@ -160,13 +160,13 @@ public class Tree {
         t.insert(25);
         t.insert(20);
         int nodes[] = { 4, 5, 8, 4, 5, 67, 0 };
-        BinaryTree tree = new BinaryTree();
-        Node root = tree.buildTree(nodes);
-        System.out.println(root.data);
-        // preOrder(root);
-        // inOrder(root);
-        // postOrder(root);
-        levelOrder(root);
+        // BinaryTree tree = new BinaryTree();
+        // Node root = tree.buildTree(nodes);
+        // System.out.println(root.data);
+        // // preOrder(root);
+        // // inOrder(root);
+        // // postOrder(root);
+        // levelOrder(root);
     }
 }
 
