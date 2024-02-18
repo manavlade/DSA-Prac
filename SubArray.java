@@ -14,19 +14,50 @@ Sample Output 1 :
 Explanation for Sample 1 :
 The subarray yielding the maximum sum is [1, 2, 7, -4, 3, 2].
  */
+
+import java.util.HashMap;
+
 public class SubArray {
     public static long maxSubarraySum(int[] arr, int n) {
-        long maSum =  Long.MAX_VALUE;
+        long maSum = Long.MAX_VALUE;
         long currentSum = 0;
         for (int i = 0; i < n; i++) {
             currentSum += arr[i];
-            if(currentSum < 0){
+            if (currentSum < 0) {
                 currentSum = 0;
             }
-            if(currentSum > maSum){
-                maSum =  currentSum;
+            if (currentSum > maSum) {
+                maSum = currentSum;
             }
         }
         return maSum;
+    }
+
+    /*
+     * Given an array A of N elements. Find the majority element in the array. A
+     * majority element in an array A of size N is an element that appears strictly
+     * more than N/2 times in the array.
+     * Example 1:
+     * Input:
+     * N = 3
+     * A[] = {1,2,3}
+     * Output:
+     * -1
+     * Explanation:
+     * Since, each element in
+     * {1,2,3} appears only once so there
+     * is no majority element.
+     */
+    static int majorityElement(int a[], int size) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < a.length; i++) {
+            map.put(a[i], map.getOrDefault(a[i], 0) + 1);
+        }
+        for (int i : map.keySet()) {
+            if (map.get(i) > size / 2) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
