@@ -23,5 +23,12 @@ public class SquareRoot {
         }
         return (int)  result;
     }
+
+    // static long inversionCount(long arr[], long N) {
+    //     long inversions = 0;
+    //     for (int i = 0; i < arr.length; i++) {
+    //         if(arr[i] < )
+    //     }
+    // }
     
 }
