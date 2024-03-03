@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
+
+import org.w3c.dom.Node;
 
 class TreeNode {
     int val;
@@ -73,9 +76,9 @@ public class Treepyq {
     Stack<TreeNode> stack;
 
     public void BSTIterator(TreeNode root) {
-       stack = new Stack<>();
-       TreeNode tree = root;
-       update(root);
+        stack = new Stack<>();
+        TreeNode tree = root;
+        update(root);
     }
 
     public int next() {
@@ -161,16 +164,16 @@ public class Treepyq {
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-         List<List<Integer>>  list = new ArrayList<>();
+        List<List<Integer>> list = new ArrayList<>();
 
-         if(root == null){
+        if (root == null) {
             return list;
-         }
+        }
 
-         Queue<TreeNode> que = new LinkedList<>();
-         que.offer(root);
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
 
-         while (!que.isEmpty()) {
+        while (!que.isEmpty()) {
             int levelSize = que.size();
             List<Integer> ans = new ArrayList<>();
 
@@ -178,19 +181,19 @@ public class Treepyq {
                 TreeNode current = que.poll();
                 ans.add(current.val);
 
-                if(current.left != null){
+                if (current.left != null) {
                     que.add(current.left);
                 }
-                if(current.right != null){
+                if (current.right != null) {
                     que.add(current.right);
                 }
 
                 list.add(ans);
             }
-         }
-         return list;
+        }
+        return list;
     }
-    
+
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         /*
          * Question
@@ -201,8 +204,8 @@ public class Treepyq {
          * Input: root = [3,9,20,null,null,15,7]
          * Output: [[3],[20,9],[15,7]]
          */
-        List<List<Integer>>  result = new ArrayList<>();
-        if(root == null){
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
             return result;
         }
         Queue<TreeNode> queue = new LinkedList<>();
@@ -213,19 +216,18 @@ public class Treepyq {
             int size = queue.size();
             List<Integer> levelvalues = new ArrayList<>();
 
-            for (int i = 0; i <size; i++) {
+            for (int i = 0; i < size; i++) {
                 TreeNode curreny = queue.poll();
 
-                if(reverse){
+                if (reverse) {
                     levelvalues.add(0, curreny.val);
-                }
-                else {
+                } else {
                     levelvalues.add(curreny.val);
                 }
-                if(curreny.left != null){
+                if (curreny.left != null) {
                     queue.add(curreny.left);
                 }
-                if(curreny.right != null){
+                if (curreny.right != null) {
                     queue.add(curreny.right);
                 }
             }
@@ -235,8 +237,8 @@ public class Treepyq {
         return result;
     }
 
-
     int max = Integer.MIN_VALUE;
+
     public int maxPath(TreeNode root) {
         /*
          * Question
@@ -260,9 +262,72 @@ public class Treepyq {
         max = Math.max(max, left_sum + right_sum + value);
         return Math.max(left_sum, right_sum) + value;
     }
+
     public int maxPathSum(TreeNode root) {
         maxPath(root);
         return max;
+    }
+
+    ArrayList<Integer> findSpiral(Node root) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        if (root != null) {
+            return arr;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        Stack<Integer> stack = new Stack<>();
+        boolean reverse = false;
+
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                Node curent = queue.poll();
+                if (reverse) {
+                    stack.push(curent.data);
+                } else {
+                    arr.add(curent.data);
+                }
+
+                if (curent.left != null) {
+                    queue.add(curent.left);
+                }
+
+                if (curent.right != null) {
+                    queue.add(curent.right);
+                }
+            }
+            while (!stack.isEmpty()) {
+                arr.add(stack.pop());
+            }
+            reverse = !reverse;
+        }
+        return arr;
+    }
+
+    public int kthSmallest(TreeNode root, int k) {
+        /*
+         * Question
+         * Given the root of a binary search tree, and an integer k, return the kth
+         * smallest value (1-indexed) of all the values of the nodes in the tree.
+         * Input: root = [3,1,4,null,2], k = 1
+         * Output: 1
+         * First create a arraylist of integer type
+         * Add all tree elemts
+         * Get the kth number from arraylist
+         */
+        ArrayList<Integer> arr = new ArrayList<>();
+        inorder(root, arr, k);
+        return (k > 0 && k <= arr.size()) ? arr.get(k - 1) : -1;
+    }
+
+    private void inorder(TreeNode root, ArrayList<Integer> arr, int k) {
+        if(root == null || arr.size() >= k){
+            return;
+        }
+        inorder(root.left, arr, k);
+        arr.add(root.val);
+        inorder(root.right, arr, k);
     }
 
 }
