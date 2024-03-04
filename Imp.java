@@ -22,7 +22,10 @@
    * signifying the end
    * of each level. 
    */
-  class Node {
+
+import java.util.Arrays;
+
+class Node {
     public int val;
     public Node left;
     public Node right;
@@ -120,4 +123,17 @@ public class Imp {
         return count;  
     }
 
+    public static int kthSmallest(int[] arr, int l, int r, int k) 
+    {
+        Arrays.sort(arr);
+        for (int i = l; i <= r; i++) {
+            if(i == k - 1){
+                return arr[i];
+            }
+            
+        }
+        return -1;
+    }
+    
 }
+
