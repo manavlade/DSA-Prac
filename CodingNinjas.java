@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Stack;
 
 public class CodingNinjas {
 
@@ -280,6 +281,37 @@ public class CodingNinjas {
          }
 
          return res;
+     }
+
+     public static void reverseStack(Stack<Integer> stack) {
+        /*
+         * Question
+         * Reverse a given stack of 'N' integers using recursion. You are required to
+         * make changes in the input parameter itself.
+         * Note: You are not allowed to use any extra space other than the internal
+         * stack space used due to recursion.
+         * Example:
+         * Input: [1,2,3,4,5]
+         * Output: [5,4,3,2,1]
+         */
+        
+         // Thoda logic tricky hai revise once
+         if(!stack.isEmpty()){
+            int top = stack.pop();
+            reverseStack(stack);
+            insertBottom(stack, top);
+        }
+     }
+     public static void insertBottom(Stack<Integer> stack,int elemnt){
+        if(stack.isEmpty()){
+            stack.push(elemnt);
+        }
+        else {
+            int top = stack.pop();
+            insertBottom(stack, elemnt);
+            stack.push(top);
+        }
+
      }
 }
 
