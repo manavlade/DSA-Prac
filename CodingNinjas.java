@@ -311,7 +311,7 @@ public class CodingNinjas {
             insertBottom(stack, elemnt);
             stack.push(top);
         }
-
      }
+     
 }
 
