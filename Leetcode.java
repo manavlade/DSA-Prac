@@ -37,4 +37,25 @@ public class Leetcode {
         }
         return true;
     }
+
+    public int scoreOfString(String s) {
+        /*
+         * Question
+         * You are given a string s. The score of a string is defined as the sum of the
+         * absolute difference between the ASCII values of adjacent characters.
+         * 
+         * Return the score of s.
+         */
+        int ASCIIADD = 0;
+        int [] ascii = new int[s.length()];
+
+        for (int i = 0; i < s.length(); i++) {
+            ascii[i] = (int) s.charAt(i);
+        }
+        for (int i = 0; i < ascii.length-1; i++) {
+            
+            ASCIIADD += Math.abs(ascii[i] - ascii[i + 1]);
+        }
+        return ASCIIADD;
+    }
 }

@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 public class CodingNinjas {
@@ -313,5 +316,124 @@ public class CodingNinjas {
         }
      }
      
+    /*
+     * Time Complexity: O(N)
+     * Space complexity: O(1)
+     * 
+     * Where N is the length of the array.
+     */
+
+    public static int flipBits(int[] arr, int n) {
+        /*
+         * Question
+         * You are given an array of integers ARR[] of size N consisting of zeros and
+         * ones. You have to select a subset and flip bits of that subset. You have to
+         * return the count of maximum one’s that you can obtain by flipping chosen
+         * sub-array at most once.
+         * 
+         * A flip operation is one in which you turn 1 into 0 and 0 into 1.
+         * 
+         * For example:
+         * If you are given an array {1, 1, 0, 0, 1} then you will have to return the
+         * count of maximum one’s you can obtain by flipping anyone chosen sub-array at
+         * most once, so here you will clearly choose sub-array from the index 2 to 3
+         * and then flip it's bits. So, the final array comes out to be {1, 1, 1, 1, 1}
+         * which contains five ones and so you will return 5.
+         * 
+         * FLIPKART AMDOCS PYQ
+         */
+        int totalOnes = 0;
+
+        // Initialize overall maximum difference for any subArray
+        int max = 0;
+
+        // Initialize current difference
+        int currMax = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            if (arr[i] == 1) {
+                totalOnes++;
+            }
+
+            // Value to be considered for finding maximum sum
+            int val = 0;
+            if (arr[i] == 1) {
+                val = -1;
+            } else {
+                val = 1;
+            }
+
+            currMax = Math.max(val, currMax + val);
+            max = Math.max(max, currMax);
+        }
+        max = Math.max(0, max);
+        int result = totalOnes + max;
+        return result;
+    }
+
+    private static class Pair{
+        /*
+         * Question
+         * You are given a string of lowercase characters. Your task is to rearrange
+         * (reorder) the string in such a way that no two adjacent characters are the
+         * same.
+         * 
+         * You have to return the rearranged string. If there exists more than one
+         * solution you can return any of them.If there is no such string you have to
+         * return “NO SOLUTION”. If your returned value is correct the program will
+         * print ‘CORRECT’ else ‘INCORRECT’.
+         * 
+         * For example :
+         * 
+         * If we are given a string "aabb", then the possible solutions are:
+         * 
+         * (i) abab
+         * (ii) baba
+         */
+        char alphabet;
+        int freq;
+
+        Pair(char alphabet, int freq){
+            this.alphabet = alphabet;
+            this.freq = freq;
+        }
+    }
+    public static String rearrangeString(String str) {
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b) -> b.freq - a.freq);
+
+        Map<Character, Integer> map = new HashMap<>();
+
+        for (char ch : str.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        for (Character key : map.keySet()) {
+            pq.add(new Pair(key, map.get(key)));
+        }
+
+        char [] res = new char[str.length()];
+
+        int i = 0;
+
+        while (pq.size() > 0) {
+            Pair pair = pq.poll();
+            if(pair.freq > (str.length() + 1) / 2){
+                return "NO SOLUTION";
+            }
+
+            while (pair.freq > 0) {
+                if( i >= res.length){
+                    i = 1;
+                }
+                res[i] = pair.alphabet;
+                i += 2;
+                pair.freq--;
+            }
+        }
+        String result = new String(res);
+        return result;
+    }
+
 }
 
