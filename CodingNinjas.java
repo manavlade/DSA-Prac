@@ -435,5 +435,46 @@ public class CodingNinjas {
         return result;
     }
 
+    public static List<String> findPermutations(String s) {
+        /*
+         * Question
+         * You are given an input string 'S'. Your task is to find and return all
+         * possible permutations of the input string.
+         * Note:
+         * 1. The input string may contain the same characters, so there will also be
+         * the same permutations.
+         * 2. The order of permutation does not matter.
+         * Sample Input 1:
+         * cba
+         * Sample Output 1:
+         * abc
+         * acb
+         * bac
+         * bca
+         * cab
+         * cba
+         * Explanation for Sample Output 1:
+         * All the possible permutations for string "cba" will be "abc", "acb", "bac",
+         * "bca", "cab" and "cba".
+         */
+         List<String> solution = new ArrayList<>();
+         solver(solution, s, 0, "", new boolean[s.length()]);
+         return solution;
+
+    }
+    private static void solver(List<String> solution,String s,int index, String temp, boolean visited []){
+        if(index == s.length()){
+            solution.add(temp);
+            return;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if(visited[i]){
+                continue;
+            }
+            visited[i] = true;
+            solver(solution, s, index+ 1, temp + String.valueOf(s.charAt(i)), visited);
+            visited[i] = false;
+        }
+    }
 }
 
