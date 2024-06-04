@@ -1,6 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 
 public class GFG {
     /*
@@ -23,7 +24,7 @@ public class GFG {
      * 7th contiguous subarray = {2 3 6} Max = 6
      * 
      */
-    //BAAKI HAI YE QUESTION REVISE QUEUE CONCEPT
+    // BAAKI HAI YE QUESTION REVISE QUEUE CONCEPT
     static ArrayList<Integer> max_of_subarrays(int arr[], int n, int k) {
         // Your code here
         ArrayList<Integer> list = new ArrayList<>();
@@ -52,5 +53,36 @@ public class GFG {
         }
 
         return list;
+    }
+
+    public int longestPalindrome(String s) {
+        /*
+         * Question
+         * Given a string s which consists of lowercase or uppercase letters, return the
+         * length of the longest
+         * palindrome
+         * that can be built with those letters.
+         * 
+         * Letters are case sensitive, for example, "Aa" is not considered a palindrome.
+         */
+        HashSet<Character> set = new HashSet<>();
+
+        int length = 0;
+
+        for (char c : s.toCharArray()) {
+            if(set.contains(c)){
+                set.remove(c);
+                length += 2;
+            }
+            else {
+                set.add(c);
+            }
+        }
+
+        if (!set.isEmpty()) {
+            length += 1;
+        }
+
+        return length;
     }
 }
