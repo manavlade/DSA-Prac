@@ -94,21 +94,21 @@ public class CodingNinjas {
          */
         int size = arr.length;
         for (int i = 0; i < size; i++) {
-            while (arr[i] > 0 && arr[i] <= size && arr[arr[i] - 1] != arr[i] ) {
+            while (arr[i] > 0 && arr[i] <= size && arr[arr[i] - 1] != arr[i]) {
                 int temp = arr[arr[i] - 1];
                 arr[arr[i] - 1] = arr[i];
                 arr[i] = temp;
             }
         }
         for (int i = 0; i < size; i++) {
-            if(arr[i] != i +1){
+            if (arr[i] != i + 1) {
                 return i + 1;
             }
         }
         return size + 1;
     }
-    
-      public static boolean subsetSumToK(int n, int k, int arr[]){
+
+    public static boolean subsetSumToK(int n, int k, int arr[]) {
         /*
          * Question
          * You are given an array/list ‘ARR’ of ‘N’ positive integers and an integer
@@ -120,7 +120,7 @@ public class CodingNinjas {
          * If ‘ARR’ is {1,2,3,4} and ‘K’ = 4, then there exists 2 subsets with sum = 4.
          * These are {1,3} and {4}. Hence, return true.
          */
-        boolean [][] sum = new boolean[n+1][k+1];
+        boolean[][] sum = new boolean[n + 1][k + 1];
 
         for (int i = 0; i <= k; i++) {
             sum[0][i] = false;
@@ -131,20 +131,20 @@ public class CodingNinjas {
         }
 
         for (int i = 1; i <= n; i++) {
-            for(int j = 1; j <= k; j++){
-                if(arr[i-1] <= j){
-                    sum[i][j] = sum[i-1][j-arr[i-1]] || sum[i-1][j];
-                }
-                else {
-                    sum[i][j] = sum[i-1][j];
+            for (int j = 1; j <= k; j++) {
+                if (arr[i - 1] <= j) {
+                    sum[i][j] = sum[i - 1][j - arr[i - 1]] || sum[i - 1][j];
+                } else {
+                    sum[i][j] = sum[i - 1][j];
                 }
             }
         }
         return sum[n][k];
     }
 
-    //imp Question 
+    // imp Question
     public static final int MOD = 1000000007;
+
     public static long countDistinctWayToClimbStair(int nStairs) {
         /*
          * Question
@@ -159,27 +159,28 @@ public class CodingNinjas {
          * the first two-step and then one step i.e. {(0,2),(1, 3)} or we can climb
          * first one step and then two step i.e. {(0,1), (1,3)}.
          */
-		if(nStairs == 0 || nStairs == 1 ){
+        if (nStairs == 0 || nStairs == 1) {
             return 1;
         }
-        int n = (int)nStairs;
-        int [] dp =  new int[n + 1];
+        int n = (int) nStairs;
+        int[] dp = new int[n + 1];
         dp[0] = 1;
         dp[1] = 1;
 
         int count = countWays(n, dp);
         return count;
 
-	}
-    public static int countWays(long n, int [] dp){
-
-        for (int i = 2; i <= n; i++) {
-            dp[i] = dp[i-1] % MOD + dp[i-2] %MOD;    
-        }
-        return dp[dp.length-1] % MOD;
     }
 
-     public static List<int[]> pairSum(int[] arr, int s) {
+    public static int countWays(long n, int[] dp) {
+
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] % MOD + dp[i - 2] % MOD;
+        }
+        return dp[dp.length - 1] % MOD;
+    }
+
+    public static List<int[]> pairSum(int[] arr, int s) {
         /*
          * Question
          * You are given an integer array 'ARR' of size 'N' and an integer 'S'. Your
@@ -194,18 +195,18 @@ public class CodingNinjas {
          */
         List<int[]> pairs = new ArrayList<>();
         Arrays.sort(arr);
-        for (int i = 0; i < arr.length-1; i++) {
-            for (int j = i+1; j < arr.length; j++) {
-                if(arr[i] + arr[j] == s){
-                    pairs.add(new int[]{arr[i], arr[j]});
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] + arr[j] == s) {
+                    pairs.add(new int[] { arr[i], arr[j] });
                 }
             }
         }
         return pairs;
-     }
+    }
 
-     //Ye vala thoda baaki hai imp hai 
-     static boolean isFeasible(int n, int m, int[] time, long mid) {
+    // Ye vala thoda baaki hai imp hai
+    static boolean isFeasible(int n, int m, int[] time, long mid) {
         /*
          * Question
          * Ayush is studying for ninjatest which will be held after 'N' days, And to
@@ -239,54 +240,54 @@ public class CodingNinjas {
          * 
          * Then he will study the chapters in the following order
          */
-         int days = 1;
-         long sum = 0;
+        int days = 1;
+        long sum = 0;
 
-         for (int i = 0; i < m; i++) {
-             if (sum + time[i] > mid) {
-                 sum = time[i];
-                 days++;
-             } else {
-                 sum += time[i];
-             }
-         }
+        for (int i = 0; i < m; i++) {
+            if (sum + time[i] > mid) {
+                sum = time[i];
+                days++;
+            } else {
+                sum += time[i];
+            }
+        }
 
-         return days <= n;
-     }
+        return days <= n;
+    }
 
-     static long maximum(int[] time) {
-         long min = time[0];
-         for (int i = 1; i < time.length; i++) {
-             min = Math.max(time[i], min);
-         }
-         return min;
-     }
+    static long maximum(int[] time) {
+        long min = time[0];
+        for (int i = 1; i < time.length; i++) {
+            min = Math.max(time[i], min);
+        }
+        return min;
+    }
 
-     public static long ayushGivesNinjatest(int n, int m, int[] time) {
-         // Write your code here.
+    public static long ayushGivesNinjatest(int n, int m, int[] time) {
+        // Write your code here.
 
-         long min = (long) maximum(time);
-         long max = 0L;
-         for (int i = 0; i < m; i++) {
-             max += time[i];
-         }
+        long min = (long) maximum(time);
+        long max = 0L;
+        for (int i = 0; i < m; i++) {
+            max += time[i];
+        }
 
-         long res = Integer.MAX_VALUE;
+        long res = Integer.MAX_VALUE;
 
-         while (min <= max) {
-             long mid = (min + max) / 2;
-             if (isFeasible(n, m, time, mid)) {
-                 max = mid - 1;
-                 res = mid;
-             } else {
-                 min = mid + 1;
-             }
-         }
+        while (min <= max) {
+            long mid = (min + max) / 2;
+            if (isFeasible(n, m, time, mid)) {
+                max = mid - 1;
+                res = mid;
+            } else {
+                min = mid + 1;
+            }
+        }
 
-         return res;
-     }
+        return res;
+    }
 
-     public static void reverseStack(Stack<Integer> stack) {
+    public static void reverseStack(Stack<Integer> stack) {
         /*
          * Question
          * Reverse a given stack of 'N' integers using recursion. You are required to
@@ -297,25 +298,25 @@ public class CodingNinjas {
          * Input: [1,2,3,4,5]
          * Output: [5,4,3,2,1]
          */
-        
-         // Thoda logic tricky hai revise once
-         if(!stack.isEmpty()){
+
+        // Thoda logic tricky hai revise once
+        if (!stack.isEmpty()) {
             int top = stack.pop();
             reverseStack(stack);
             insertBottom(stack, top);
         }
-     }
-     public static void insertBottom(Stack<Integer> stack,int elemnt){
-        if(stack.isEmpty()){
+    }
+
+    public static void insertBottom(Stack<Integer> stack, int elemnt) {
+        if (stack.isEmpty()) {
             stack.push(elemnt);
-        }
-        else {
+        } else {
             int top = stack.pop();
             insertBottom(stack, elemnt);
             stack.push(top);
         }
-     }
-     
+    }
+
     /*
      * Time Complexity: O(N)
      * Space complexity: O(1)
@@ -372,7 +373,7 @@ public class CodingNinjas {
         return result;
     }
 
-    private static class Pair{
+    private static class Pair {
         /*
          * Question
          * You are given a string of lowercase characters. Your task is to rearrange
@@ -394,13 +395,14 @@ public class CodingNinjas {
         char alphabet;
         int freq;
 
-        Pair(char alphabet, int freq){
+        Pair(char alphabet, int freq) {
             this.alphabet = alphabet;
             this.freq = freq;
         }
     }
+
     public static String rearrangeString(String str) {
-        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b) -> b.freq - a.freq);
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> b.freq - a.freq);
 
         Map<Character, Integer> map = new HashMap<>();
 
@@ -412,18 +414,18 @@ public class CodingNinjas {
             pq.add(new Pair(key, map.get(key)));
         }
 
-        char [] res = new char[str.length()];
+        char[] res = new char[str.length()];
 
         int i = 0;
 
         while (pq.size() > 0) {
             Pair pair = pq.poll();
-            if(pair.freq > (str.length() + 1) / 2){
+            if (pair.freq > (str.length() + 1) / 2) {
                 return "NO SOLUTION";
             }
 
             while (pair.freq > 0) {
-                if( i >= res.length){
+                if (i >= res.length) {
                     i = 1;
                 }
                 res[i] = pair.alphabet;
@@ -457,25 +459,27 @@ public class CodingNinjas {
          * All the possible permutations for string "cba" will be "abc", "acb", "bac",
          * "bca", "cab" and "cba".
          */
-         List<String> solution = new ArrayList<>();
-         solver(solution, s, 0, "", new boolean[s.length()]);
-         return solution;
+        List<String> solution = new ArrayList<>();
+        solver(solution, s, 0, "", new boolean[s.length()]);
+        return solution;
 
     }
-    private static void solver(List<String> solution,String s,int index, String temp, boolean visited []){
-        if(index == s.length()){
+
+    private static void solver(List<String> solution, String s, int index, String temp, boolean visited[]) {
+        if (index == s.length()) {
             solution.add(temp);
             return;
         }
         for (int i = 0; i < s.length(); i++) {
-            if(visited[i]){
+            if (visited[i]) {
                 continue;
             }
             visited[i] = true;
-            solver(solution, s, index+ 1, temp + String.valueOf(s.charAt(i)), visited);
+            solver(solution, s, index + 1, temp + String.valueOf(s.charAt(i)), visited);
             visited[i] = false;
         }
     }
+
     static int largestElement(int[] arr, int n) {
         int max = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -483,5 +487,22 @@ public class CodingNinjas {
         }
         return max;
     }
-}
 
+    public static List<Integer> printDivisors(int n) {
+        /*
+         * Question
+         * Given an integer ‘N’, your task is to write a program that returns all the
+         * divisors of ‘N’ in ascending order.
+         * For example:
+         * 'N' = 5.
+         * The divisors of 5 are 1, 5.
+         */
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                list.add(i);
+            }
+        }
+        return list;
+    }
+}
