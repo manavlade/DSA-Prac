@@ -55,7 +55,7 @@ public class LinkedList {
 
     public static void removeLoop(Node head) {
         /*
-        imp question
+         * imp question
          * Question
          * Given a linked list of N nodes such that it may contain a loop.
          * 
@@ -67,18 +67,17 @@ public class LinkedList {
          */
         // remove the loop without losing any nodes
         HashSet<Node> hs = new HashSet<>();
-        if(head.next == null){
+        if (head.next == null) {
             return;
         }
         Node currentNode = head;
         Node prev = null;
 
         while (currentNode != null) {
-            if(hs.contains(currentNode)){
+            if (hs.contains(currentNode)) {
                 prev.next = null;
                 break;
-            }
-            else {
+            } else {
                 hs.add(currentNode);
             }
             prev = currentNode;
@@ -88,7 +87,7 @@ public class LinkedList {
 
     int intersectPoint(Node head1, Node head2) {
         /*
-        imp question
+         * imp question
          * Question
          * Internship Alert!
          * Become an SDE Intern by topping this monthly leaderboard!
@@ -101,7 +100,7 @@ public class LinkedList {
          * common = 15->30->NULL
          * Output: 15
          */
-        if(head1 == null || head2 == null){
+        if (head1 == null || head2 == null) {
             return -1;
         }
 
@@ -113,9 +112,56 @@ public class LinkedList {
             l2 = l2 == null ? head1 : l2.next;
         }
 
-        if(l1 == null || l2 == null) return -1;
+        if (l1 == null || l2 == null)
+            return -1;
 
         return l1.data;
     }
 
+    // class Node {
+    //     public int data;
+    //     public Node next;
+
+    //     Node() {
+    //         this.data = 0;
+    //         this.next = null;
+    //     }
+
+    //     Node(int data) {
+    //         this.data = data;
+    //         this.next = null;
+    //     }
+
+    //     Node(int data, Node next) {
+    //         this.data = data;
+    //         this.next = next;
+    //     }
+    // }
+
+    public static Node findMiddle(Node head) {
+        /*
+        EXTREMELY IMPORTANT QUESTION ASKED IN MORE THAN 75 COMPANIES 
+        DIFFICULTY LEVEL EASY
+         * Question
+         * Given a singly linked list of 'N' nodes. The objective is to determine the
+         * middle node of a singly linked list. However, if the list has an even number
+         * of nodes, we return the second middle node.
+         * Example
+         * 5
+         * 1 2 3 4 5
+         * Sample Output 1 :
+         * 3 4 5
+         */
+        if (head == null) {
+            return null;
+        }
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
 }

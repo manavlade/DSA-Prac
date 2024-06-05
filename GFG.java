@@ -70,11 +70,10 @@ public class GFG {
         int length = 0;
 
         for (char c : s.toCharArray()) {
-            if(set.contains(c)){
+            if (set.contains(c)) {
                 set.remove(c);
                 length += 2;
-            }
-            else {
+            } else {
                 set.add(c);
             }
         }
@@ -85,4 +84,6 @@ public class GFG {
 
         return length;
     }
+
+   
 }
