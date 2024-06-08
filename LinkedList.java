@@ -140,8 +140,8 @@ public class LinkedList {
 
     public static Node findMiddle(Node head) {
         /*
-        EXTREMELY IMPORTANT QUESTION ASKED IN MORE THAN 75 COMPANIES 
-        DIFFICULTY LEVEL EASY
+         * EXTREMELY IMPORTANT QUESTION ASKED IN MORE THAN 75 COMPANIES
+         * DIFFICULTY LEVEL EASY
          * Question
          * Given a singly linked list of 'N' nodes. The objective is to determine the
          * middle node of a singly linked list. However, if the list has an even number
@@ -151,6 +151,42 @@ public class LinkedList {
          * 1 2 3 4 5
          * Sample Output 1 :
          * 3 4 5
+         * DRY RUN
+         * Dry Run with Example Linked List: 1 -> 2 -> 3 -> 4 -> 5
+         * 
+         * Initialization:
+         * 
+         * head points to the first node (1).
+         * slow and fast both point to the first node (1).
+         * First Iteration:
+         * 
+         * Condition: fast != null and fast.next != null (True)
+         * fast moves two steps: fast = fast.next.next (points to 3)
+         * slow moves one step: slow = slow.next (points to 2)
+         * Current positions:
+         * 
+         * slow -> 2
+         * fast -> 3
+         * Second Iteration:
+         * 
+         * Condition: fast != null and fast.next != null (True)
+         * fast moves two steps: fast = fast.next.next (points to 5)
+         * slow moves one step: slow = slow.next (points to 3)
+         * Current positions:
+         * 
+         * slow -> 3
+         * fast -> 5
+         * Third Iteration:
+         * 
+         * Condition: fast != null and fast.next != null (False, because fast.next is
+         * null)
+         * Exit the loop
+         * Return the middle node:
+         * 
+         * The slow pointer now points to the middle node (3).
+         * Output:
+         * 
+         * The middle node is the node with value 3.
          */
         if (head == null) {
             return null;

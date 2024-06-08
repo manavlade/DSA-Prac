@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 public class Leetcode {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         /*
@@ -47,13 +52,13 @@ public class Leetcode {
          * Return the score of s.
          */
         int ASCIIADD = 0;
-        int [] ascii = new int[s.length()];
+        int[] ascii = new int[s.length()];
 
         for (int i = 0; i < s.length(); i++) {
             ascii[i] = (int) s.charAt(i);
         }
-        for (int i = 0; i < ascii.length-1; i++) {
-            
+        for (int i = 0; i < ascii.length - 1; i++) {
+
             ASCIIADD += Math.abs(ascii[i] - ascii[i + 1]);
         }
         return ASCIIADD;
@@ -70,7 +75,7 @@ public class Leetcode {
          * Input: s = ["h","e","l","l","o"]
          * Output: ["o","l","l","e","h"]
          */
-        int left = 0, right = s.length-1;
+        int left = 0, right = s.length - 1;
         while (left < right) {
             char temp = s[left];
             s[left] = s[right];
@@ -78,5 +83,76 @@ public class Leetcode {
             left++;
             right--;
         }
+    }
+
+    // public List<String> commonChars(String[] words) {
+    // return;
+    // }
+
+    // Need to practice once
+    public boolean handofStraights(int[] hand, int groupSize, int i, int n) {
+        int f = hand[i] + 1;
+        hand[i] = -1;
+        int count = 1;
+        i += 1;
+        while (i < n && count < groupSize) {
+            if (hand[i] == f) {
+                hand[i] = -1;
+                count++;
+            }
+            i++;
+        }
+        if (count != groupSize)
+            return false;
+        else
+            return true;
+
+    }
+
+    public boolean isNStraightHand(int[] hand, int groupSize) {
+        int n = hand.length;
+        if (n % groupSize != 0) {
+            return false;
+        }
+
+        Arrays.sort(hand);
+        for (int i = 0; i < n; i++) {
+            if (hand[i] >= 0) {
+                if (!handofStraights(hand, groupSize, i, n))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkSubarraySum(int[] nums, int k) {
+        /*
+         * Question
+         * Given an integer array nums and an integer k, return true if nums has a good
+         * subarray or false otherwise.
+         * 
+         * A good subarray is defined as:
+         * 
+         * Its length is at least two.
+         * The sum of the elements of the subarray is a multiple of k.
+         */
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        int runTotal = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            runTotal += nums[i];
+
+            int mod = runTotal % k;
+            if(map.containsKey(mod)){
+                if(i - map.get(mod) > 1){
+                    return true;
+                }
+                else {
+                    map.put(mod, i);
+                }
+            }
+        }
+        return false;
     }
 }
