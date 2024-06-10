@@ -144,11 +144,10 @@ public class Leetcode {
             runTotal += nums[i];
 
             int mod = runTotal % k;
-            if(map.containsKey(mod)){
-                if(i - map.get(mod) > 1){
+            if (map.containsKey(mod)) {
+                if (i - map.get(mod) > 1) {
                     return true;
-                }
-                else {
+                } else {
                     map.put(mod, i);
                 }
             }
@@ -193,4 +192,22 @@ public class Leetcode {
 
         return count;
     }
+
+    public int findPeakElement(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            int mid  = left + (right - left) / 2;
+
+            if(nums[mid] < nums[mid + 1]){
+                left = mid + 1;
+            }
+            else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
 }
