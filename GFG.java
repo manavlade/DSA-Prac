@@ -1,6 +1,8 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class GFG {
@@ -104,5 +106,56 @@ public class GFG {
         int rightHeight = height(node.right);
 
         return Math.max(leftHeight, rightHeight) + 1; 
+    }
+
+      void matchPairs(int n, char nuts[], char bolts[]) {
+        /*
+         * Question
+         * Given a set of n nuts & bolts. There is a one-on-one mapping between nuts and
+         * bolts. You have to Match nuts and bolts efficiently. Comparison of a nut to
+         * another nut or a bolt to another bolt is not allowed. It means the nut can
+         * only be compared with the bolt and the bolt can only be compared with the nut
+         * to see which one is bigger/smaller.
+         * The elements should follow the following order: { !,#,$,%,&,*,?,@,^ }
+         * 
+         * Note: Make all the required changes directly in the given arrays, output will
+         * be handled by the driver code.
+         * 
+         * Examples
+         * 
+         * Input: n = 5, nuts[] = {@, %, $, #, ^}, bolts[] = {%, @, #, $ ^}
+         * Output:
+         * # $ % @ ^
+         * # $ % @ ^
+         * Explanation: As per the order # should come first after that $ then % then @
+         * and ^.
+         * 
+         */
+        HashMap<Character, Integer> map = new HashMap<>();
+        map.put('!', 1);
+        map.put('#', 2);
+        map.put('$', 3);
+        map.put('%', 4);
+        map.put('&', 5);
+        map.put('*', 6);
+        map.put('?', 7);
+        map.put('@', 8);
+        map.put('^', 9);
+
+        Character[] nutsArr = new Character[n];
+        Character[] boltsArr = new Character[n];
+
+        for (int i = 0; i < n; i++) {
+            nutsArr[i] = nuts[i];
+            boltsArr[i] = bolts[i];
+        }
+
+        Arrays.sort(nutsArr, (a,b) -> map.get(a) - map.get(b));
+        Arrays.sort(boltsArr, (a,b) -> map.get(a) - map.get(b));
+
+        for (int i = 0; i < n; i++) {
+            nuts[i] = nutsArr[i];
+            bolts[i] = boltsArr[i];
+        }
     }
 }
