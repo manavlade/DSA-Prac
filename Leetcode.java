@@ -304,13 +304,106 @@ public class Leetcode {
         int moves = 0;
 
         for (int i = 0; i < nums.length; i++) {
-            if(nums[i] <= nums[i-1]){
-                int increment = nums[i-1] - nums[i] + 1;
+            if (nums[i] <= nums[i - 1]) {
+                int increment = nums[i - 1] - nums[i] + 1;
                 nums[i] += increment;
                 moves += increment;
             }
         }
         return moves;
+    }
+
+    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int n = profits.length;
+
+        for (int i = 0; i < n; i++) {
+            map.put(profits[i], capital[i]);
+        }
+
+    }
+
+    public int[] searchRange(int[] nums, int target) {
+        /*
+         * Question
+         * Given an array of integers nums sorted in non-decreasing order, find the
+         * starting and ending position of a given target value.
+         * 
+         * If target is not found in the array, return [-1, -1].
+         * 
+         * You must write an algorithm with O(log n) runtime complexity.
+         * 
+         * 
+         * 
+         * Example 1:
+         * 
+         * Input: nums = [5,7,7,8,8,10], target = 8
+         * Output: [3,4]
+         */
+        int[] ans = new int[2];
+        Arrays.fill(ans, -1);
+        int low = 0;
+        int high = nums.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (nums[mid] == target) {
+                ans[0] = mid;
+                high = mid - 1;
+            } else if (nums[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        low = 0;
+        high = nums.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (nums[mid] == target) {
+                ans[1] = mid;
+                low = mid + 1;
+            } else if (nums[mid] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public int findMin(int[] a) {
+        /*
+         * Question
+         * Suppose an array of length n sorted in ascending order is rotated between 1
+         * and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+         * 
+         * [4,5,6,7,0,1,2] if it was rotated 4 times.
+         * [0,1,2,4,5,6,7] if it was rotated 7 times.
+         * Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results
+         * in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+         * 
+         * Given the sorted rotated array nums of unique elements, return the minimum
+         * element of this array.
+         * You must write an algorithm that runs in O(log n) time.
+         * Example 1:
+         * Input: nums = [3,4,5,1,2]
+         * Output: 1
+         * Explanation: The original array was [1,2,3,4,5] rotated 3 times.
+         */
+        int low = 0;
+        int right =  a.length-1;
+
+        while (low < right) {
+            int mid = (right+low) / 2;
+
+            if(a[mid] < a[right]){
+                right = mid;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+        return a[low];
     }
 
 }
