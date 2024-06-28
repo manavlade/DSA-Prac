@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 // Baaaki hai
@@ -87,5 +89,48 @@ public class GraphImp {
          * If not, then the second element of the first edge is the center of the star graph.
          */
         return edges[0][0] == edges[1][0] || edges[0][0] == edges[1][1] ? edges[0][0] : edges[0][1];
+    }
+
+    public long maximumImportance(int n, int[][] roads) {
+        /*
+         * Question
+         * You are given an integer n denoting the number of cities in a country. The
+         * cities are numbered from 0 to n - 1.
+         * 
+         * You are also given a 2D integer array roads where roads[i] = [ai, bi] denotes
+         * that there exists a bidirectional road connecting cities ai and bi.
+         * 
+         * You need to assign each city with an integer value from 1 to n, where each
+         * value can only be used once. The importance of a road is then defined as the
+         * sum of the values of the two cities it connects.
+         * 
+         * Return the maximum total importance of all roads possible after assigning the
+         * values optimally.
+         */
+        int degree [] = new int[n];
+
+        for (int [] road : roads) {
+            degree[road[0]]++;
+            degree[road[1]]++;
+        }
+
+        Integer cities [] = new Integer[n];
+
+        for (int i = 0; i < n; i++) {
+            cities[i] = i;
+        }
+
+        Arrays.sort(cities, new Comparator<Integer>() {
+            public int compare(Integer a, Integer b){
+                return Integer.compare(degree[b], degree[a]);
+            }
+        });
+
+        long totalIMP = 0;
+
+        for (int i = 0; i < n; i++) {
+            totalIMP += (long) (n-i) * degree[cities[i]];
+        }
+        return totalIMP;
     }
 }

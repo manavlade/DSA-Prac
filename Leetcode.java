@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -391,21 +392,19 @@ public class Leetcode {
          * Explanation: The original array was [1,2,3,4,5] rotated 3 times.
          */
         int low = 0;
-        int right =  a.length-1;
+        int right = a.length - 1;
 
         while (low < right) {
-            int mid = (right+low) / 2;
+            int mid = (right + low) / 2;
 
-            if(a[mid] < a[right]){
+            if (a[mid] < a[right]) {
                 right = mid;
-            }
-            else {
+            } else {
                 low = mid + 1;
             }
         }
         return a[low];
     }
-
 
     
 }
